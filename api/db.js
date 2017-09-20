@@ -3,8 +3,6 @@
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
-mongoose.connect('mongodb://localhost/a01');
-
 const movieSchema = new mongoose.Schema({
 	title: String,
 	year: Number,
@@ -12,11 +10,10 @@ const movieSchema = new mongoose.Schema({
 	added: Date
 });
 
-const Movie = mongoose.model('Movie', movieSchema);
-
 class DB {
-	constructor() {
-		this.Movie = Movie;
+	constructor(dbName) {
+		const conn = mongoose.createConnection(`mongodb://localhost/${dbName}`);
+		this.Movie = conn.model('Movie', movieSchema);
 	}
 
 	getMovies() {

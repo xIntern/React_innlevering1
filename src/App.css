@@ -1,8 +1,26 @@
 body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+  margin-top: 20px;
+  /*padding: 0;*/
+  /*font-family: sans-serif;*/
+  background-color: #2a2d32;
+  color: rgba(255, 255, 255, 0.5);
 }
+#movie-watchlist {
+  background-color: #2e3136;
+}
+thead {
+  border-bottom: 1px solid #393c41;
+}
+#movie-list > table.bordered tr,
+#root input[type="text"], #root input[type="number"] {
+  border-bottom: 1px solid #393c41;
+}
+/*table.striped>tbody>tr:nth-child(odd) {
+  background-color: #2e3136;
+}*/
 .clickable {
   cursor: pointer;
+}
+::-webkit-input-placeholder {
+  color: rgba(255, 255, 255, 0.3);
 }

@@ -1,20 +1,28 @@
 import React, { Component } from 'react';
 import AddMovie from './AddMovie';
 import MovieList from './MovieList';
+import SearchMovies from './SearchMovies';
 
 const apiBaseUrl = 'http://localhost:3000';
 
 class MovieWatchlist extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+
+        this.deleteMovie = this.deleteMovie.bind(this);
+
+        this.state = {
+            movies: [],
+            search: ''
+        };
     }
 
     addMovie(childState) {
         if (childState.title === '') {
+            console.log('No title');
             return;
         }
-        fetch('http://localhost:3000/movie', {
+        fetch(`${apiBaseUrl}/movie`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -28,7 +36,7 @@ class MovieWatchlist extends Component {
     }
 
     deleteMovie(id) {
-        fetch(`http://localhost:3000/movie/${id}`, {
+        fetch(`${apiBaseUrl}/movie/${id}`, {
             method: 'DELETE'
         }).then(response => {
             if (response.ok) {
@@ -52,21 +60,43 @@ class MovieWatchlist extends Component {
         });
     }
 
+    searchMovies(keyword) {
+        this.setState({
+            search: keyword
+        });
+    }
+
     componentDidMount() {
         this.getMovies();
     }
 
+    componentDidUpdate() {
+        // console.log(this.state);
+    }
+
     render() {
+        let movieList = <MovieList
+            deleteFn={this.deleteMovie}
+            movies={this.state.movies.filter(movie => movie.title.toLowerCase().search(this.state.search.toLowerCase()) > -1)}
+        />
         if (!this.state.movies) {
-            return <p>Loading...</p>
+            movieList = <p className="center">Loading...</p>
         }
         if (!this.state.movies.length) {
-            return <p>Empty</p>
+            movieList = <p className="center">No movies, please add a one above</p>
         }
         return (
-            <div id="movie-watchlist">
-                <AddMovie addFn={this.addMovie.bind(this)} />
-                <MovieList deleteFn={this.deleteMovie.bind(this)} movies={this.state.movies} />
+            <div id="movie-watchlist" className="row">
+                <div className="col s12">
+                    <AddMovie
+                        addFn={this.addMovie.bind(this)}
+                    />
+                    <SearchMovies
+                        searchFn={this.searchMovies.bind(this)}
+                    />
+
+                    {movieList}
+                </div>
             </div>
         );
     }
