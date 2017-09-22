@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MovieWatchlist from './MovieWatchlist';
+import MovieWatchlist from './Components/MovieWatchlist';
 import 'materialize-css/dist/css/materialize.min.css';
 import './App.css';
 

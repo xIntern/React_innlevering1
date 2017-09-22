@@ -4,13 +4,6 @@ const request = require('request-promise-native');
 
 const apiBase = 'http://localhost:3000';
 
-		// request.get({
-		// 	uri: `${apiBase}/movies/test`,
-		// 	resolveWithFullResponse: true
-		// }).then(response => {
-		// 	console.log(response.statusCode);
-		// });
-
 describe('api requests', () => {
 	const state = {
 		movie: {

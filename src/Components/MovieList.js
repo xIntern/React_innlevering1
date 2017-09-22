@@ -4,6 +4,7 @@ import MovieRow from './MovieRow';
 const MovieList = props => {
     return (
         <div id="movie-list">
+        {props.movies.length ? (
             <table className="bordered">
                 <thead>
                     <tr>
@@ -18,6 +19,9 @@ const MovieList = props => {
                     })}
                 </tbody>
             </table>
+        ) : (
+            <h4 className="center">No movies</h4>
+        )}
         </div>
     );
 }
