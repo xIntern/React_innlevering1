@@ -4,7 +4,7 @@ const request = require('request-promise-native');
 
 const apiBase = 'http://localhost:3000';
 
-describe('api requests', () => {
+describe('api tests', () => {
 	const state = {
 		movie: {
 			title: "Batman Begins",
@@ -13,24 +13,24 @@ describe('api requests', () => {
 		}
 	};
 
-	it('test api', () => {
+	it('connection to db', () => {
 		request.get({
 			uri: `${apiBase}/movies/test`,
 			resolveWithFullResponse: true
 		}).then(response => {
-			console.log('DB is', (response.statusCode === 200) ? 'connected':'not connected');
-
 			expect(response.statusCode).toBe(200);
+		});
+	});
 
-			return request.post({
-				uri: `${apiBase}/movie/test`,
-				resolveWithFullResponse: true,
-				json: state.movie
-			});
+	it('add movie, fetch movie, delete movie, check if empty db', () => {
+		request.post({
+			uri: `${apiBase}/movie/test`,
+			resolveWithFullResponse: true,
+			json: state.movie
 		}).then(response => {
 			console.log('Post response body:', response.body);
 
-			expect(response.statusCode).toBe(200);
+			expect(response.statusCode).toBe(201);
 
 			state.movie.id = response.body._id;
 

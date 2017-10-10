@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import MovieList from '../MovieList';
+import MovieList from '../Components/MovieList';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');

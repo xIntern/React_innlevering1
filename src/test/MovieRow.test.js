@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import MovieRow from '../MovieRow';
+import MovieRow from '../Components/MovieRow';
 
 it('renders without crashing', () => {
   const tbody = document.createElement('tbody');

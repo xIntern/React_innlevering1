@@ -6,7 +6,7 @@ const MovieRow = props => (
         <td>{props.year}</td>
         <td>
             <i
-                onClick={(e) => {
+                onClick={() => {
                     props.deleteFn(props.id);
                 }}
                 className="material-icons clickable">

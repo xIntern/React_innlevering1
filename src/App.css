@@ -8,11 +8,11 @@ body {
 #movie-watchlist {
   background-color: #2e3136;
 }
-thead {
-  border-bottom: 1px solid #393c41;
-}
+thead,
 #movie-list > table.bordered tr,
-#root input[type="text"], #root input[type="number"] {
+#root input[type="text"],
+#root input[type="number"],
+#root input[type="search"] {
   border-bottom: 1px solid #393c41;
 }
 /*table.striped>tbody>tr:nth-child(odd) {
@@ -24,6 +24,9 @@ thead {
 #loader {
   display: flex;
   justify-content: center;
+}
+input[type=search]::-webkit-search-cancel-button {
+    -webkit-appearance: searchfield-cancel-button;
 }
 ::-webkit-input-placeholder {
   color: rgba(255, 255, 255, 0.3);

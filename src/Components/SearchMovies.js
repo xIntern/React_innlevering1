@@ -4,7 +4,7 @@ const SearchMovies = props => (
     <div id="search-movies">
         <input
             id="search-input"
-            type="text"
+            type="search"
             className="input-field"
             placeholder="Search..."
             onChange={e => {

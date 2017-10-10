@@ -10,8 +10,8 @@ class MovieWatchlist extends Component {
     constructor(props) {
         super(props);
 
-        this.deleteMovie = this.deleteMovie.bind(this);
         this.addMovie = this.addMovie.bind(this);
+        this.deleteMovie = this.deleteMovie.bind(this);
         this.searchMovies = this.searchMovies.bind(this);
 
         this.state = {
@@ -36,6 +36,8 @@ class MovieWatchlist extends Component {
             this.setState(prevState => ({
                 movies: [...prevState.movies, json]
             }));
+        }).catch(err => {
+            console.log(err);
         });
     }
 
@@ -45,7 +47,7 @@ class MovieWatchlist extends Component {
         }).then(response => {
             if (response.ok) {
                 this.setState(prevState => ({
-                    movies: prevState.movies.filter((movie, i) => movie._id !== id)
+                    movies: prevState.movies.filter(movie => movie._id !== id)
                 }));
             }
         }).catch(err => {
@@ -69,6 +71,8 @@ class MovieWatchlist extends Component {
                 prevState.movies = json;
                 return prevState;
             });
+        }).catch(err => {
+            console.error(err);
         });
     }
 
@@ -79,9 +83,6 @@ class MovieWatchlist extends Component {
     }
 
     componentDidMount() {
-        setInterval(() => {
-            this.getMovies();
-        }, 5000);
         this.getMovies();
     }
 
@@ -102,7 +103,12 @@ class MovieWatchlist extends Component {
                         <MovieList
                             deleteFn={this.deleteMovie}
                             movies={this.state.movies.filter(
-                                movie => movie.title.toLowerCase().search(this.state.search.toLowerCase()) > -1
+                                movie => {
+                                    let searchStr = this.state.search.toLowerCase();
+                                    let title = movie.title.toLowerCase();
+                                    let year = movie.year;
+                                    return title.search(searchStr) > -1 || year == searchStr;
+                                }
                             )}
                         />
                     )}
